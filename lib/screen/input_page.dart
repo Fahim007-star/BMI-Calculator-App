@@ -1,8 +1,11 @@
-import 'package:bmi_calculator_app/bottom_button.dart';
-import 'package:bmi_calculator_app/constants.dart';
-import 'package:bmi_calculator_app/icon_content.dart';
-import 'package:bmi_calculator_app/result_page.dart';
-import 'package:bmi_calculator_app/reusable_card.dart';
+import 'package:bmi_calculator_app/components/bottom_button.dart';
+import 'package:bmi_calculator_app/components/constants.dart';
+import 'package:bmi_calculator_app/components/icon_content.dart';
+import 'package:bmi_calculator_app/components/round_icon_button.dart';
+import 'package:bmi_calculator_app/screen/calculator_brain.dart';
+import 'package:bmi_calculator_app/screen/result_page.dart';
+import 'package:bmi_calculator_app/components/reusable_card.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -188,36 +191,24 @@ class _InputPageState extends State<InputPage> {
           BottomButton(
             ButtonTitle: "CALCULATE",
             onTap: () {
+              CalculatorBrain calc = CalculatorBrain(
+                height: height,
+                weight: weight,
+              );
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ResultPage()),
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
+                ),
               );
             },
           ),
         ],
       ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  const RoundIconButton({
-    super.key,
-    required this.iconData,
-    required this.onPressed,
-  });
-  final FaIconData iconData;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: onPressed,
-      elevation: 6.0,
-      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-      child: FaIcon(iconData),
     );
   }
 }
