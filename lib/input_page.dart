@@ -16,6 +16,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 180;
+  int weight = 60;
+  int age = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -114,14 +116,68 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     onTap: () {},
                     color: KActiveCardColor,
-                    cardChild: Container(),
+                    cardChild: Column(
+                      children: [
+                        Text("WEIGHT", style: KLableTextStyle),
+                        Text(weight.toString(), style: KNumberTextStyle),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              iconData: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  weight--;
+                                });
+                              },
+                            ),
+                            SizedBox(width: 10),
+                            RoundIconButton(
+                              iconData: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     onTap: () {},
                     color: KActiveCardColor,
-                    cardChild: Container(),
+                    cardChild: Column(
+                      children: [
+                        Text("AGE", style: KLableTextStyle),
+                        Text(age.toString(), style: KNumberTextStyle),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              iconData: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                            ),
+                            SizedBox(width: 10),
+                            RoundIconButton(
+                              iconData: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -135,6 +191,28 @@ class _InputPageState extends State<InputPage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  const RoundIconButton({
+    super.key,
+    required this.iconData,
+    required this.onPressed,
+  });
+  final FaIconData iconData;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      elevation: 6.0,
+      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
+      shape: CircleBorder(),
+      fillColor: Color(0xFF4C4F5E),
+      child: FaIcon(iconData),
     );
   }
 }
